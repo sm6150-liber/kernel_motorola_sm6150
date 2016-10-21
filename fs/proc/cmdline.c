@@ -48,6 +48,20 @@ static void patch_safetynet_flags(char *cmd)
 	patch_flag(cmd, "androidboot.veritymode=", "enforcing");
 }
 
+static void remove_flag(char *cmd, const char *flag)
+{
+	char *start_addr, *end_addr;
+
+	/* Ensure all instances of a flag are removed */
+	while ((start_addr = strstr(cmd, flag))) {
+		end_addr = strchr(start_addr, ' ');
+		if (end_addr)
+			memmove(start_addr, end_addr + 1, strlen(end_addr));
+		else
+			*(max(cmd, start_addr - 1)) = '\0';
+	}
+}
+
 static int __init proc_cmdline_init(void)
 {
 	strcpy(new_command_line, saved_command_line);
