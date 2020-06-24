@@ -425,9 +425,6 @@ static void hystart_update(struct sock *sk, u32 delay)
 		if (ca->curr_rtt > delay)
 			ca->curr_rtt = delay;
 		if (ca->sample_cnt < HYSTART_MIN_SAMPLES) {
-			if (ca->curr_rtt > delay)
-				ca->curr_rtt = delay;
-
 			ca->sample_cnt++;
 		} else {
 			if (ca->curr_rtt > ca->delay_min +
