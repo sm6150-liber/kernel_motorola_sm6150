@@ -566,3 +566,11 @@
 &ufshc_mem {
         spm-level = <3>;
 };
+
+&dump_mem {
+    status = "disabled";
+};
+
+&mem_dump {
+    status = "disabled";
+};
