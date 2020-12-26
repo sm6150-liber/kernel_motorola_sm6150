@@ -29,6 +29,7 @@
 #include <linux/types.h>
 #include <linux/miscdevice.h>
 #include <linux/bitops.h>
+#include <linux/msm_dma_iommu_mapping.h>
 #include "ion_kernel.h"
 #include "../uapi/ion.h"
 #include "../uapi/msm_ion.h"
@@ -142,6 +143,7 @@ struct ion_buffer {
 	pid_t pid;
 	pid_t client_pids[MAX_CLIENTS_NUM];
 	int ref_cnt;
+	struct msm_iommu_data iommu_data;
 };
 
 void ion_buffer_destroy(struct ion_buffer *buffer);
