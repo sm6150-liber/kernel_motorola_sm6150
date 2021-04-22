@@ -54,13 +54,13 @@ static u8 checksum_l_bin;
 #define S_PROX   1
 #define S_BODY   2
 
-#define ABOV_DEBUG 1
+#define ABOV_DEBUG 0
 #define LOG_TAG "ABOV"
 
 #if ABOV_DEBUG
 #define LOG_INFO(fmt, args...)    pr_info(LOG_TAG fmt, ##args)
 #else
-#define LOG_INFO(fmt, args...)
+#define LOG_INFO(fmt, args...) do { } while(0)
 #endif
 
 #define LOG_DBG(fmt, args...)	pr_info(LOG_TAG fmt, ##args)
