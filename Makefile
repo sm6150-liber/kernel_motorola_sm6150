@@ -716,7 +716,9 @@ KBUILD_CFLAGS	+= $(call cc-option, -Wno-format)
 ifdef CONFIG_CC_OPTIMIZE_FOR_SIZE
 KBUILD_CFLAGS   += -Os
 else
-KBUILD_CFLAGS   += -O3
+KBUILD_AFLAGS	+= -O3
+KBUILD_CFLAGS	+= -O3
+KBUILD_LDFLAGS	+= -O3
 endif
 
 # Tell compiler to use pipes instead of temporary files during compilation
