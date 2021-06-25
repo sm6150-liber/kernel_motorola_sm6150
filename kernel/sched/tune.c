@@ -701,6 +701,15 @@ static int prefer_idle_write_wrapper(struct cgroup_subsys_state *css,
 
 	return prefer_idle_write(css, cft, prefer_idle);
 }
+
+static int prefer_high_cap_write_wrapper(struct cgroup_subsys_state *css,
+				 struct cftype *cft, u64 prefer_high_cap)
+{
+	if (task_is_booster(current))
+		return 0;
+
+	return prefer_high_cap_write(css, cft, prefer_high_cap);
+}
 #endif
 
 static struct cftype files[] = {
@@ -729,7 +738,7 @@ static struct cftype files[] = {
 	{
 		.name = "prefer_high_cap",
 		.read_u64 = prefer_high_cap_read,
-		.write_u64 = prefer_high_cap_write,
+		.write_u64 = prefer_high_cap_write_wrapper,
 	},
 	{} /* terminate */
 };
@@ -758,17 +767,18 @@ schedtune_boostgroup_init(struct schedtune *st)
 struct st_data {
 	char *name;
 	int boost;
+	bool prefer_high_cap;
 	bool prefer_idle;
 };
 
 static void write_default_values(struct cgroup_subsys_state *css)
 {
 	static struct st_data st_targets[] = {
-		{ "audio-app",	0, 0 },
-		{ "background",	0, 0 },
-		{ "foreground",	1, 0 },
-		{ "rt",		0, 0 },
-		{ "top-app",	5, 1 },
+		{ "audio-app",	0, 0, 0 },
+		{ "background",	0, 0, 0 },
+		{ "foreground",	1, 0, 1 },
+		{ "rt",		0, 0, 0 },
+		{ "top-app",	5, 1, 1 },
 	};
 	int i;
 
@@ -777,9 +787,10 @@ static void write_default_values(struct cgroup_subsys_state *css)
 
 		if (!strcmp(css->cgroup->kn->name, tgt.name)) {
 			boost_write(css, NULL, tgt.boost);
+			prefer_high_cap_write(css, NULL, tgt.prefer_high_cap);
 			prefer_idle_write(css, NULL, tgt.prefer_idle);
-			pr_info("stune_assist: setting values for %s: boost=%d prefer_idle=%d\n",
-				tgt.name, tgt.boost, tgt.prefer_idle);
+			pr_info("stune_assist: setting values for %s: boost=%d prefer_high_cap=%d prefer_idle=%d\n",
+				tgt.name, tgt.boost, tgt.prefer_high_cap, tgt.prefer_idle);
 		}
 	}
 }
