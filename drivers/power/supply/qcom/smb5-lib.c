@@ -18,7 +18,6 @@
 #include <linux/power_supply.h>
 #include <linux/regulator/driver.h>
 #include <linux/qpnp/qpnp-revid.h>
-#include <linux/ipc_logging.h>
 #include <linux/irq.h>
 #include <linux/iio/consumer.h>
 #include <linux/pmic-voter.h>
@@ -32,22 +31,7 @@
 #include "storm-watch.h"
 #include "schgm-flash.h"
 
-#ifdef QCOM_BASE
-#define smblib_err(chg, fmt, ...)		\
-	pr_err("%s: %s: " fmt, chg->name,	\
-		__func__, ##__VA_ARGS__)	\
-
-#else
-#define smblib_err(chg, fmt, ...)			\
-	do {						\
-		pr_err("%s: %s: " fmt, chg->name,	\
-		       __func__, ##__VA_ARGS__);	\
-		ipc_log_string(chg->ipc_log,		\
-		"ERR:%s: " fmt, __func__, ##__VA_ARGS__); \
-	} while (0)
-
-#endif
-
+#define smblib_err(chg, fmt, ...) do { } while (0)
 #define smblib_dbg(chg, reason, fmt, ...) do { } while (0)
 
 #define QPNP_LOG_PAGES (50)
@@ -11386,24 +11370,6 @@ void mmi_init(struct smb_charger *chg)
 
 	if (!chg)
 		return;
-
-	chg->ipc_log = ipc_log_context_create(QPNP_LOG_PAGES,
-						"charger", 0);
-	if (chg->ipc_log == NULL)
-		pr_err("%s: failed to create charger IPC log\n",
-						__func__);
-	else
-		smblib_dbg(chg, PR_MISC,
-			   "IPC logging is enabled for charger\n");
-
-	chg->ipc_log_reg = ipc_log_context_create(QPNP_LOG_PAGES,
-						"charger_reg", 0);
-	if (chg->ipc_log_reg == NULL)
-		pr_err("%s: failed to create register IPC log\n",
-						__func__);
-	else
-		smblib_dbg(chg, PR_MISC,
-			   "IPC logging is enabled for charger\n");
 
 	mmi_chip = chg;
 	chg->voltage_min_uv = MICRO_5V;
