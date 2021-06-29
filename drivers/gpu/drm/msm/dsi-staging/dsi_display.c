@@ -8308,7 +8308,6 @@ int dsi_display_disable(struct dsi_display *display)
 	}
 
 	SDE_EVT32(SDE_EVTLOG_FUNC_ENTRY);
-	pr_info("%s(%s)+\n", __func__, display->drm_conn->name);
 	mutex_lock(&display->display_lock);
 
 	//Check if Mot early power is on going
