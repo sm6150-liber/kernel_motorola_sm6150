@@ -32,6 +32,7 @@
 #define SUBSYS_LOCAL_MODEM "modem"
 #define SUBSYS_REMOTE_MODEM "esoc0"
 
+#if 0
 
 #define IPAWANDBG(fmt, args...) \
 	do { \
@@ -81,6 +82,16 @@
 		IPA_IPC_LOGGING(ipa_get_ipc_logbuf_low(), \
 				DEV_NAME " %s:%d " fmt, ## args); \
 	} while (0)
+
+#else
+
+#define IPAWANDBG(fmt, args...) do { } while (0)
+#define IPAWANDBG_LOW(fmt, args...)	do { } while (0)
+#define IPAWANERR(fmt, args...) do { } while (0)
+#define IPAWANERR_RL(fmt, args...) do { } while (0)
+#define IPAWANINFO(fmt, args...) do { } while (0)
+
+#endif
 
 extern struct ipa3_qmi_context *ipa3_qmi_ctx;
 
