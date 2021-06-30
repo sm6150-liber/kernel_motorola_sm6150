@@ -71,6 +71,7 @@ static int __init proc_cmdline_init(void)
 	 * pass SafetyNet checks.
 	 */
 	patch_safetynet_flags(new_command_line);
+	remove_flag(new_command_line, "video=vfb:640x400,bpp=32,memsize=3072000");
 
 	proc_create("cmdline", 0, NULL, &cmdline_proc_fops);
 	return 0;
