@@ -103,7 +103,7 @@ ifeq ($(CONFIG_ICNSS), y)
 	CONFIG_HELIUMPLUS := y
 	CONFIG_64BIT_PADDR := y
 	CONFIG_FEATURE_TSO := y
-	CONFIG_FEATURE_TSO_DEBUG := n
+	CONFIG_FEATURE_TSO_DEBUG := y
 	ifeq ($(CONFIG_INET_LRO), y)
 		CONFIG_WLAN_LRO := y
 	else
@@ -273,7 +273,7 @@ ifeq ($(CONFIG_ROME_IF),usb)
 endif
 
 
-CONFIG_FEATURE_EPPING := n
+CONFIG_FEATURE_EPPING := y
 
 #Flag to enable offload packets feature
 CONFIG_WLAN_OFFLOAD_PACKETS := y
@@ -338,7 +338,7 @@ CONFIG_MCC_TO_SCC_SWITCH := y
 ifeq ($(CONFIG_SLUB_DEBUG), y)
 	# Enable Obj Mgr Degug services if slub build
 	CONFIG_WLAN_OBJMGR_DEBUG:= y
-	CONFIG_MPC_UT_FRAMEWORK := n
+	CONFIG_MPC_UT_FRAMEWORK := y
 	CONFIG_LOCK_STATS_ON:= y
 endif
 
@@ -510,7 +510,7 @@ endif
 BUILD_DEBUG_VERSION := n
 
 #Enable this flag to build driver in diag version
-BUILD_DIAG_VERSION := n
+BUILD_DIAG_VERSION := y
 
 ifeq ($(CONFIG_SLUB_DEBUG), y)
 	PANIC_ON_BUG := y
@@ -774,7 +774,7 @@ CONFIG_QCA_SIGNED_SPLIT_BINARY_SUPPORT := n
 CONFIG_QCA_SINGLE_BINARY_SUPPORT := n
 
 #Enable collecting target RAM dump after kernel panic
-CONFIG_TARGET_RAMDUMP_AFTER_KERNEL_PANIC := n
+CONFIG_TARGET_RAMDUMP_AFTER_KERNEL_PANIC := y
 
 #Flag to enable/disable secure firmware feature
 CONFIG_FEATURE_SECURE_FIRMWARE := n
@@ -793,7 +793,7 @@ CONFIG_FEATURE_HTC_CREDIT_HISTORY := y
 CONFIG_TRACE_RECORD_FEATURE := n
 
 #Flag to enable p2p debug feature
-CONFIG_WLAN_FEATURE_P2P_DEBUG := n
+CONFIG_WLAN_FEATURE_P2P_DEBUG := y
 
 #Flag to enable roam debug log
 CONFIG_FEATURE_ROAM_DEBUG := n
@@ -808,7 +808,7 @@ CONFIG_WLAN_WEXT_SUPPORT_ENABLE := y
 CONFIG_ENABLE_MTRACE_LOG := n
 
 #Flag to enable nud tracking feature
-CONFIG_WLAN_NUD_TRACKING := n
+CONFIG_WLAN_NUD_TRACKING := y
 
 #Flag to enable/Disable Function call trace
 CONFIG_FUNC_CALL_MAP := n
@@ -958,7 +958,7 @@ ifeq ($(CONFIG_LITHIUM), y)
 endif
 
 #Flag to enable hdd memory dump feature
-CONFIG_FEATURE_MEMDUMP_ENABLE := n
+CONFIG_FEATURE_MEMDUMP_ENABLE := y
 
 #Flag to enable/disable WLAN D0-WOW
 ifeq ($(CONFIG_PCI_MSM), y)
@@ -985,7 +985,7 @@ ifeq ($(CONFIG_ARCH_SDXPRAIRIE), y)
 endif
 
 ifneq ($(CONFIG_HIF_USB), y)
-CONFIG_WLAN_LOGGING_SOCK_SVC := n
+CONFIG_WLAN_LOGGING_SOCK_SVC := y
 endif
 
 ifneq ($(TARGET_BUILD_VARIANT),user)
