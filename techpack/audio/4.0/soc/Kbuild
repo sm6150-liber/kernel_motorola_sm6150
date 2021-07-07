@@ -138,7 +138,7 @@ CDEFINES +=	-DANI_LITTLE_BYTE_ENDIAN \
 KBUILD_CPPFLAGS += $(CDEFINES)
 
 ifeq ($(KERNEL_BUILD), 0)
-	ifeq ($(CONFIG_ARCH_SM6150), y)
+	ifeq ($(CONFIG_ARCH_SDMMAGPIE), y)
 		KBUILD_EXTRA_SYMBOLS +=$(OUT)/obj/vendor/qcom/opensource/audio-kernel/4.0/dsp/Module.symvers
 	else
 		KBUILD_EXTRA_SYMBOLS +=$(OUT)/obj/vendor/qcom/opensource/audio-kernel/dsp/Module.symvers
