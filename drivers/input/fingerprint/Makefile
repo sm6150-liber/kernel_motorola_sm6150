@@ -5,3 +5,4 @@
 # Each configuration option enables a list of files.
 
 obj-$(CONFIG_FINGERPRINT_GOODIX_FOD_MMI)	+= goodix_fod_mmi/
+obj-$(CONFIG_FINGERPRINT_FPC_TEE_MMI)	+= fpc_fps_mmi/
